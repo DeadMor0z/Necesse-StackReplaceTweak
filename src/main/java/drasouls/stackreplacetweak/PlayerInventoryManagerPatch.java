@@ -16,7 +16,7 @@ public class PlayerInventoryManagerPatch {
     public static boolean onEnter(@Advice.This PlayerInventoryManager thiz, @Advice.Argument(0) PlayerInventorySlot slot, @Advice.Argument(1) InventoryItem invItem) {
         if (invItem != null && invItem.getAmount() == 0) {
             // find similar item in inventory
-            Optional<PlayerInventorySlot> i = thiz.streamSlots(false, false, false)
+            Optional<PlayerInventorySlot> i = thiz.streamPlayerSlots(false, false, false, false)
                     .filter(makeFilterFunc(thiz, slot, invItem))
                     .findFirst();
             if (!i.isPresent()) return false;
